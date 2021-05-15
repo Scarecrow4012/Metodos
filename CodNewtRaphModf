@@ -1,0 +1,39 @@
+function newt = newtonmodificado(x0,tolmax,n,f,d,d_2)
+
+	format long 
+	fx=anfunc(f);
+	fd=anfunc(d);
+	fdd=anfunc(d_2)
+	ii=0;
+	error=tole+1;
+	
+	
+	while error>tolmax & ii<n
+		y=fx(x0);
+		yd=fd(x0);
+		ydd=fdd(x0);
+		x_1=x0-(y*yd)/(yd^2-y*ydd);
+		error=abs(x_1-x0);
+		ii=ii+1;
+		newt(ii,1)=ii;
+		newt(ii,2)=x0;
+		newt(ii,3)=y;
+		newt(ii,4)=yd;
+		newt(ii,5)=ydd;
+		newt(ii,6)=error;
+		tabla(1,6)=0;
+		x_0=x_1;
+	end
+
+	
+		if y==0
+			fprintf('%g Raiz.\n.',x0);
+			elseif error<tolmax
+			fprintf('%g es aproximacion con una tolerancia=%g y un error=%g.\n.', x0, tole, error);
+			fprintf('La funcion evaluada en ese punto es f(x)=%g.\n.',y);
+			fprintf('La derivada de la funcion evaluada en ese punto es d/dx=%g.\n.',yd);
+			fprintf('La segunda derivada de la funcion evaluada en ese punto es %g.\n.',ydd);
+			else
+			fprintf('el metodo no funciono en n iteraciones');
+		end
+end
